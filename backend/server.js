@@ -6,7 +6,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 
 
-const Journal = require("./models/Journal");
+const Journal = require("./models/journal");
 
 const app = express();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
