@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -8,20 +9,16 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const Journal = require("./models/Journal");
 
 const app = express();
-const genAI = new GoogleGenerativeAI("AIzaSyA9HE7TD-0q7j4UsXuVLp42Qga3igGBXUs");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017/journal")
-.then(()=>{
-    console.log("MongoDB connected");
-})
-.catch(err=>{
-    console.log(err);
-});
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 
 app.get("/", (req,res)=>{
     res.send("AI Journal API running");
