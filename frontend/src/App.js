@@ -10,22 +10,22 @@ function App() {
   const userId = "123";
 
   const fetchEntries = async () => {
-    const res = await axios.get(`http://localhost:5000/api/journal/${userId}`);
+    const res = await axios.get(`https://ai-journal-system-1-9adz.onrender.com/api/journal/${userId}`);
     setEntries(res.data);
   };
 
   const fetchInsights = async () => {
-    const res = await axios.get(`http://localhost:5000/api/journal/insights/${userId}`);
+    const res = await axios.get(`https://ai-journal-system-1-9adz.onrender.com/api/journal/insights/${userId}`);
     setInsights(res.data);
   };
 
   const handleAnalyze = async () => {
 
-    const analyze = await axios.post("http://localhost:5000/api/journal/analyze",{
+    const analyze = await axios.post("https://ai-journal-system-1-9adz.onrender.com/api/journal/analyze",{
       text
     });
 
-    await axios.post("http://localhost:5000/api/journal",{
+    await axios.post("https://ai-journal-system-1-9adz.onrender.com/api/journal",{
       userId,
       ambience:"forest",
       text,
