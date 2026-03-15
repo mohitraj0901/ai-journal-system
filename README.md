@@ -1,19 +1,21 @@
-# AI Assisted Journal System
+# AI Journal System
 
-A simple full-stack journaling application that allows users to:
+## Live Demo
+Frontend: https://ai-journal-system-blond.vercel.app
+Backend: https://ai-journal-system-1-9adz.onrender.com
+
+## Features
 - Write journal entries
-- Analyze emotions using AI
-- View insights about mental state
+- AI emotion detection
+- Automatic summary generation
+- Insights dashboard
 
 ## Tech Stack
-Frontend: React  
-Backend: Node.js + Express  
-Database: MongoDB  
+Frontend: React
+Backend: Node.js, Express
+Database: MongoDB Atlas
 AI: Google Gemini API
+Deployment: Vercel + Render
 
-## APIs
-
-POST /api/journal  
-POST /api/journal/analyze  
-GET /api/journal/:userId  
-GET /api/journal/insights/:userId
+## Architecture
+React → Node API → MongoDB Atlas → Gemini AI
