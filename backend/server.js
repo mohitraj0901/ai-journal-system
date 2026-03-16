@@ -29,20 +29,21 @@ app.post("/api/journal/analyze", async (req, res) => {
     const text = req.body.text;
 
     const prompt = `
-    Analyze the following journal entry and return:
-    1. Emotion
-    2. Keywords
-    3. Short summary
+Analyze this journal entry and return JSON with:
+emotion, keywords (array), summary.
 
-    Journal entry: ${text}
-    `;
+Journal: ${text}
+
+Return only JSON.
+`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response.text();
 
-    res.json({
-      analysis: response
-    });
+    const cleaned = response.replace(/```json|```/g, "");
+    const data = JSON.parse(cleaned);
+
+    res.json(data);
 
   } catch (error) {
     console.error(error);
@@ -50,6 +51,16 @@ app.post("/api/journal/analyze", async (req, res) => {
   }
 });
 
+app.post("/api/journal", async (req, res) => {
+  try {
+    const entry = new Journal(req.body);
+    await entry.save();
+    res.json(entry);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to save journal entry" });
+  }
+});
 app.get("/api/journal/:userId", async(req,res)=>{
     const entries = await Journal.find({userId:req.params.userId});
     res.json(entries);
