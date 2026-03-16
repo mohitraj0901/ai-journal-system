@@ -24,24 +24,30 @@ app.get("/", (req,res)=>{
     res.send("AI Journal API running");
 });
 
-app.post("/api/journal", async(req,res)=>{
-    const entry = new Journal(req.body);
-    await entry.save();
-    res.json(entry);
-});
-
 app.post("/api/journal/analyze", async (req, res) => {
+  try {
+    const text = req.body.text;
 
-  const text = req.body.text;
+    const prompt = `
+    Analyze the following journal entry and return:
+    1. Emotion
+    2. Keywords
+    3. Short summary
 
-  const result = {
-    emotion: "calm",
-    keywords: ["rain", "nature", "peace"],
-    summary: "User experienced relaxation during the forest session"
-  };
+    Journal entry: ${text}
+    `;
 
-  res.json(result);
+    const result = await model.generateContent(prompt);
+    const response = await result.response.text();
 
+    res.json({
+      analysis: response
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "AI analysis failed" });
+  }
 });
 
 app.get("/api/journal/:userId", async(req,res)=>{
