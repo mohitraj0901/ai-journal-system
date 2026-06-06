@@ -15,11 +15,7 @@ Backend API: https://ai-journal-system-1-9adz.onrender.com
 
 ![App Interface](screenshots/app.png)
 
-### Insights Dashboard
 
-![Insights](screenshots/insights.png)
-
----
 
 ## Features
 
